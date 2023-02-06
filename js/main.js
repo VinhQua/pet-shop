@@ -1,3 +1,6 @@
+button = document.querySelector("button");
+allpets = [];
+petlist = document.querySelector(".all-pets");
 const createPets = function(name,species){
     const pet = {
         name: name,
@@ -16,6 +19,7 @@ const createPets = function(name,species){
             }
         }
     };
+    allpets.push(pet);
     return pet;
 };
 const sora = createPets("Sora", "ferret");
@@ -26,4 +30,21 @@ const francine = createPets("Francine","turtle");
 //console.log(sora,clover,baxter,cleo,francine);
 clover.sleep();
 baxter.play();
-console.log(clover,baxter);
+//console.log(clover,baxter);
+clover.isTired = 8;
+francine.isTired = 9;
+button.addEventListener('click',function(){
+    showPets(allpets);
+    button.disabled = true;
+});
+const showPets = function(petArray){
+    for (let pet of petArray){
+        let petStatus = `is ready to play!`;
+        if (pet.isTired >= 7){
+            petStatus ="is sleeping.";
+        }
+        const li = document.createElement("li");
+        li.innerHTML = `<li><span class="pet-name"> ${pet.name} </span> the ${pet.species} ${petStatus} </li>`
+        petlist.append(li);
+    }
+};
